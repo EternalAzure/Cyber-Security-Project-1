@@ -1,11 +1,13 @@
 from flask import render_template, session, request, redirect
 from flask.templating import render_template_string
 from app import app
+import db
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    users = db.get_users()
+    return render_template("index.html", users=users)
 
 @app.route("/info")
 def info():
@@ -13,10 +15,31 @@ def info():
 
 @app.route("/login", methods=["POST"])
 def login():
-    return
-    #Do stuff if POST
-    #
-    #
+    print("Did login")
+    user = request.form["username"]
+    password = request.form["password"]
+    if db.has_user(user, password):
+        session["username"] = user
+    return redirect("/")
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    print("Did register")
+    user = request.form["username"]
+    password = request.form["password"]
+    session["username"] = user
+    db.add_user(user,password)
+    return redirect("/")
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    print("Did logout")
+    try:
+        del session["username"]
+    except KeyError:
+        pass
+    return redirect("/")
 
 @app.route("/none")
 def none():
