@@ -1,25 +1,41 @@
-from flask import render_template, session, request, redirect
-from flask.templating import render_template_string
+from flask import render_template, session, request, redirect, flash
 from app import app
 import db
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
-    users = db.get_users()
-    return render_template("index.html", users=users)
+    messages = db.get_messages()
+    return render_template("index.html", messages=messages)
+
+@app.route("/person/<int:id>")
+def person(id):
+    messages = db.get_messages()
+    secret = db.get_secret(id)
+    return render_template("person.html", messages=messages, secret=secret, id=id)
 
 @app.route("/info")
 def info():
     return render_template("info.html")
 
+@app.route("/send", methods=["POST"])
+def send():
+    message = request.form["message"]
+    user_id = request.form["id"]
+    db.add_message(user_id, message)
+    return redirect("/person/"+str(user_id))
+
+#LOGGING STUFF
+#-------------------
 @app.route("/login", methods=["POST"])
 def login():
     print("Did login")
     user = request.form["username"]
     password = request.form["password"]
-    if db.has_user(user, password):
+    id = db.get_user_id(user, password)
+    if id:
         session["username"] = user
+        return redirect("/person/"+str(id))
     return redirect("/")
 
 
@@ -28,9 +44,15 @@ def register():
     print("Did register")
     user = request.form["username"]
     password = request.form["password"]
+    secret = request.form["secret"]
+    id = db.add_user(user, password, secret)
+
+    if id == None:
+        flash("Username is taken")
+        return redirect("/")
+
     session["username"] = user
-    db.add_user(user,password)
-    return redirect("/")
+    return redirect("/person/"+str(id))
 
 @app.route("/logout", methods=["POST"])
 def logout():
@@ -40,27 +62,3 @@ def logout():
     except KeyError:
         pass
     return redirect("/")
-
-@app.route("/none")
-def none():
-    return render_template_string('                                          \
-    <!DOCTYPE html>                                                          \
-        <head>                                                               \
-        <title>Unsecure | info</title>                                       \
-        <link rel="stylesheet" type="text/css" href="/static/index.css"/>    \
-        <script>                                                             \
-                                                                             \
-        </script>                                                            \
-        </head>                                                              \
-        <body>                                                               \
-          <div class="split right">                                          \
-            <div class="centered">                                           \
-                <form action="" method="POST">                               \
-                    <input type="text" name="input">                         \
-                    <input type="submit" value="Submit">                     \
-                </form>                                                      \
-            </div>                                                           \
-          </div>                                                             \
-        </body>                                                              \
-    </html>                                                                  \
-')

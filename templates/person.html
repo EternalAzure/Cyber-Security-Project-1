@@ -22,39 +22,18 @@
           
           <div class="split right">
             <div class="centered">
-                {% with messages = get_flashed_messages() %}
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
-                {% endwith %}
-
-                {% if not session.username %}
-                <form action="/login" method="POST" id="login">
-                    Username<br>
-                    <input type="text" name="username"><br>
-                    Password<br>
-                    <input type="password" name="password"><br>
-                    <input type="submit" value="Login">
-                </form>
-                <form action="/register" method="POST" id="register" style="display: none;">
-                    Username<br>
-                    <input type="text" name="username" required><br>
-                    Password<br>
-                    <input type="password" name="password" required><br>
-                    Secret<br>
-                    <input type="text" name="secret" required><br>
-                    <input type="submit" value="Register">
-                </form>
-                <a id ="show-register" onclick="register()">register</a>
-                <a id ="show-login" onclick="login()" style="display: none;">login</a>
-
-                {% else %}
-
+                <p>You are {{ session.username }}</p>
+                <p>Your secret is {{ secret }}</p>
                 <form action="/logout" method="POST">
                     <input type="submit" value="Logout">
                 </form>
-                
-                {% endif %}
+                <hr>
+                <form action="/send" method="POST">
+                    Message:<br>
+                    <input type="text" name="message"><br>
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <input type="submit" value="Send">
+                </form>
             </div>
           </div>
 

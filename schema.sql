@@ -1,16 +1,16 @@
-PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-DROP TABLE users;
-Create Table users(
+
+CREATE TABLE users(
 	id INTEGER PRIMARY KEY,
 	username TEXT UNIQUE,
-	pwhash TEXT
+	pwhash TEXT,
+	secret TEXT
 );
 
-INSERT INTO users VALUES(
-	1,
-	'EternalAzure',
-	'letmein'
+CREATE TABLE messages(
+	id INTEGER PRIMARY KEY,
+	user_id INTEGER REFERENCES users,
+	message TEXT
 );
 
 COMMIT;
