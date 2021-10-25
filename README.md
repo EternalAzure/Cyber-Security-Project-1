@@ -17,5 +17,11 @@ User creation uses md5 hashing for passwords which has been found to suffer from
 HTTP does not encrypt data and thus attacker can monitor network traffic
 
 ## Injections
-### Login
-Password check can be avoided by adding ```'--``` behind every username. This comments out rest of SQL statement.
+### SQL | Login
+Password check can be avoided by adding ```'--``` behind every username when loggin in. <br>
+This comments out rest of SQL statement preventening password comparison.
+Further more using f-string instead of bind variables allows for other harmfum inputs.
+### XSS | html
+Browsers automatically escape special characters in input fields of html files. <br>
+Using .j2 file ending disables automatic character escaping. <br>
+```<IMG """><SCRIPT>alert("XSS")</SCRIPT>"\>``` Will work on person page when sending a message.
