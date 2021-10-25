@@ -26,6 +26,8 @@ Further more using f-string instead of bind variables allows for other harmfum i
 Browsers automatically escape special characters in input fields of html files. <br>
 Using .j2 file ending disables automatic character escaping. <br>
 ```<IMG """><SCRIPT>alert("XSS")</SCRIPT>"\>``` Will work on person page when sending a message.
+### CSRF
+```<img src=/change?secret=thanks&user_id=2 onerror=""></img>``` changes victims secret.
 
 ## Identification and Authentication Failures 
 - Permits automated attacks such as credential stuffing
