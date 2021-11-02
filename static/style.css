@@ -37,7 +37,9 @@
   }
 
   .messages {
-    background-color: yellowgreen;
+    background-color: white;
+    text-align: center;
+    color: red;
   }
   
   .horizontal {
