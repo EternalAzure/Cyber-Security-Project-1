@@ -41,3 +41,6 @@ Using .j2 file ending disables automatic character escaping. <br>
 Application uses mock up API services to handle language configuration. <br>
 User can manipulate URL and trick server to do request without knowing the API KEY.
 Bad design allows user to read server response from html.
+
+# How to install
+
