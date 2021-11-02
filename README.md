@@ -65,6 +65,7 @@ Use command ```$ flask run``` to run the server. Go ```http://localhost:5000/```
 You can terminate the process with ```$ ^C```
 
 ## SSRF
+Get familiar with the app before trying SSRF. For this use a regular web browser.
 ### Cool option
 You can manipulate the language configuration request with [Burp Suite](https://portswigger.net/burp/releases/professional-community-2021-9-1?requestededition=community). <br>
 To run the installer go to Downloads and run something like ```$ sh burpsuite_community_linux_v2021_9_1.sh``` CHECK YOUR VERSION! <bt>
