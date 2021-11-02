@@ -43,11 +43,16 @@ User can manipulate URL and trick server to do request without knowing the API K
 Bad design allows user to read server response from html.
 
 # How to install
-Python3 is prerequisite. A virtual environment such as venv is recommended. <br>
-Go to a directory of your liking and enter command ```$ clone git@github.com:EternalAzure/Cyber-Security-Project-1.git``` <br>
+Python3 and Git are prerequisites. A virtual environment such as venv is recommended. <br>
+### venv
+You can use venv after cloning this repo with command ```$ python3 -m venv venv``` followed by ```$ source venv/bin/activate```. <br>
+Both executed in your project directory. You can exit venv with ```$ deactivate```<br>
+### repo
+Go to a directory of your liking and enter command ```$ git clone git@github.com:EternalAzure/Cyber-Security-Project-1.git``` <br>
 This will create a subdirectory called Cyber-Security-Project-1 as your project directory. <br>
-Move to the project directory and enter command ```$ pip install```. <br>
+Move to the project directory and enter command ```$ pip install -r requirements.txt```. <br>
 This should install all required dependencies including Flask and multipledispatch. <br>
+If this doesn't work try ```sudo apt install python3-flask``` to get Flask on Linux machine.
 
 # How to use
 ## Set up
@@ -60,11 +65,27 @@ Use command ```$ flask run``` to run the server. Go ```http://localhost:5000/```
 You can terminate the process with ```$ ^C```
 
 ## SSRF
+Get familiar with the app before trying SSRF. For this use a regular web browser.
 ### Cool option
 You can manipulate the language configuration request with [Burp Suite](https://portswigger.net/burp/releases/professional-community-2021-9-1?requestededition=community). <br>
-To run the installer go to Downloads and run something like ```$ sh burpsuite_community_linux_v2021_9_1.sh``` CHECK YOUR VERSION!
-Burp Suite community editin is free to use and does not require registeration. Do the short tutorial that comes with the download. <br>
-Burp Suite captures requests and lets you manipulate them before forwarding them. <br>
+To run the installer go to Downloads and run something like ```$ sh burpsuite_community_linux_v2021_9_1.sh``` CHECK YOUR VERSION! <bt>
+When launching Burp Suite choose Temporary project and then defaults. <br>
+Burp Suite community edition is free to use and does not require registeration. Do the short tutorial that comes with the download. <br>
+In case you missed or skipped the tutorial go to <b>proxy</b> tab on Burp Suite and there click to open embedded browser. <br>
+Go to localhost:5000/ <br>
+Burp Suite captures requests and lets you manipulate them before <b>forwarding</b> them. <br>
+With Burp Suite browser log in to an account and on that personal page click to change language. Burp suite will capture the request and show you the following view.
+<img src="https://github.com/EternalAzure/Cyber-Security-Project-1/blob/main/pictures/burp%20suite.png"  />
+Replace the first line with ```GET /language?api=%2Fapi%2Fadmin&ref=%2Fperson%2F1 HTTP/1.1``` to access ```/api/admin``` and thus execute SSRF. <br>
+You will see ```Kieli:mock response from /admin``` on your personal page.
 
 ### Easy option
-Alternatively you can use ssrf.rest with VS Code.
+Alternatively you can use ssrf.rest with VS Code to access ```/api/admin``` and thus execute SSRF. <br>
+You will see 
+```
+        ...
+<form action="/language" method="GET">
+        Kieli:mock response from /admin<br>
+        ...
+```
+in VS Code.
