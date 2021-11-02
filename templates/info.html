@@ -1,17 +1,99 @@
-{% extends "layout.html.j2" %}
+<!DOCTYPE html>
+    <head>
+        <title>Unsecure | Info</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+        
+    </head>
+    <body>
+        <div class="split left">
+            <div class="header">
+                <h1>Info</h1>
+            </div>
+            <section class="v-limit-650 scroll hidden horizontal">
+                
+            </section>
+        </div>
+          
+        <div class="split right">
+            <div class="header">
+                <h1>Cyber Security Project</h1>
+            </div>
 
-{% block title %}
-    Info
-{% endblock %}
+            <div class="container">
+                <div class="horizontal">
+                    <ol>
+                        <li>Broken Access Control</li>
+                        <li>Cryptographic Failures</li>
+                        <li>Injections</li>
+                        <li>Identification and Authentication Failures</li>
+                        <li>Server Side Request Forgery</li>
+                    </ol>
+                </div>
+                
+                <div class="horizontal">
+                    <h1>Broken Access Control</h1>
+                    <p>
+                        Pages are accessible without login via url. http://localhost:5000/person/<int:id>
+                        Pages are easy to iterate because they are numbered sequentially.
+                        This enables malicious automated data collection. 
+                    </p>
+                </div>
+                
+                <div class="horizontal">
+                    <h1>Cryptographic Failures</h1>
+                    <p>
+                        User creation uses md5 hashing for passwords which has been found to suffer from extensive vulnerabilities.
+                    </p>
+                    <p>
+                        HTTP does not encrypt data and thus attacker can monitor network traffic.
+                    </p>
+                </div>
+                
+                <div class="horizontal">
+                    <h1>Injections</h1>
+                    <p>
+                        Password check can be avoided by adding '-- behind every username when loggin in.
+                        This comments out rest of SQL statement preventing password comparison. 
+                        Further more using f-string instead of bind variables allows for other harmfum inputs.
+                    </p>
+                    <p>
+                        Browsers automatically escape special characters in input fields of html files.
+                        Using .j2 file ending disables automatic character escaping.
+                        &ltimg """&gt&ltSCRIPT&gtalert("XSS")&lt/SCRIPT&gt"\&gt Will work on person page when sending a message.
+                    </p>
+                    <p>
+                        CSRF vulnerabilty allows &ltimg src=/change?secret=malicious_message&user_id=1 onerror="">&lt/img> to change victims secret.
+                    </p>
+                    
+                </div>
+                
+                <div class="horizontal">
+                    <h1>Identification and Authentication Failures</h1>
+                    <ul>
+                        <li>Permits automated attacks such as credential stuffing</li>
+                        <li>Permits brute force or other automated attacks</li>
+                        <li>Permits default, weak, or well-known passwords</li>
+                        <li>Uses plain text, encrypted, or weakly hashed passwords data stores</li>
+                        <li>Has missing or ineffective multi-factor authentication</li>
+                    </ul>
+                </div>
+                
+                <div class="horizontal">
+                    <h1>Server Side Request Forgery</h1>
+                    <p>
+                        Application uses mock up API services to handle language configuration.
+                        User can manipulate URL and trick server to do request without knowing the API KEY. 
+                        Bad design allows user to read server response from html.
+                    </p>
+                    
+                </div>
 
-{% block page %}
-    Info page
-{% endblock %}
-
-{% block content %}
-
-<div class="horizontal">
-    <p>INFO</p>
-</div>
-
-{% endblock%}
+                <div class="horizontal">
+                    <p>
+                        <a href="/">Front page</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
