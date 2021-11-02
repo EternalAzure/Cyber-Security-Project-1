@@ -44,6 +44,14 @@ Bad design allows user to read server response from html.
 
 # How to install
 Python3 and Git are prerequisites. A virtual environment such as venv is recommended. <br>
+### Python & Flask
+[Python Guide](https://cybersecuritybase.mooc.fi/installation-guide)
+Try this only if you are not able to install Flask with later instructions.
+```$ pip install flask```
+If previous methods fail try ```sudo apt install python3-flask``` on Linux <br>
+pip on Windows try [guide](https://www.liquidweb.com/kb/install-pip-windows/) <br>
+pip on Mac try [guide](https://phoenixnap.com/kb/install-pip-mac)
+
 ### venv
 You can use venv after cloning this repo with command ```$ python3 -m venv venv``` followed by ```$ source venv/bin/activate```. <br>
 Both executed in your project directory. You can exit venv with ```$ deactivate```<br>
@@ -52,7 +60,6 @@ Go to a directory of your liking and enter command ```$ git clone git@github.com
 This will create a subdirectory called Cyber-Security-Project-1 as your project directory. <br>
 Move to the project directory and enter command ```$ pip install -r requirements.txt```. <br>
 This should install all required dependencies including Flask and multipledispatch. <br>
-If this doesn't work try ```sudo apt install python3-flask``` to get Flask on Linux machine.
 
 # How to use
 ## Set up
