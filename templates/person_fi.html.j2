@@ -1,0 +1,51 @@
+{% extends "layout.html.j2"%}
+
+{% block title %}
+    Personal
+{% endblock %}
+
+{% block page %}
+    Oma sivu
+{% endblock %}
+
+{% block content %}
+
+<div class="horizontal">
+    <p>Olet {{ session.username }}</p>
+    <p>Salaisuutesi on {{ secret }}</p>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Ulos">
+    </form>
+</div>
+<div class="horizontal">
+    <form action="/send" method="POST">
+        Viesti:<br>
+        <input type="text" name="message"><br>
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="submit" value="Lähetä">
+    </form>
+</div>
+<div class="horizontal">
+    Muuta salaisuutta<br>
+    <input type="text" id="secret"><br>
+    <button onclick=queryString()>Muuta</button>
+    <script>
+        function queryString() {
+            console.log("queryString()")
+            let secret = document.getElementById("secret").value
+            let id = "{{ id }}"
+            let query = `/change?secret=${secret}&user_id=${id}`
+            fetch(query)
+        }
+    </script>
+</div>
+<div class="horizontal">
+    <form action="/language" method="GET">
+        Kieli:{{session.language}}<br>
+        <input type="radio" name="api" value="/api/language?lan=english">English<br>
+        <input type="hidden" name="ref" value="/person/{{id}}">
+        <input type="submit" value="Change">
+    </form>
+</div>
+
+{% endblock %}

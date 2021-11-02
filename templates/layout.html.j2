@@ -1,13 +1,15 @@
 <!DOCTYPE html>
     <head>
-        <title>Unsecure | mainpage</title>
-        <link rel="stylesheet" type="text/css" href="/static/index.css"/>
+        <title>Unsecure | {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css"/>
         
     </head>
     <body>
         <div class="split left">
-            <div class="centered">
-                Messages:
+            <div class="header">
+                <h1>Messages</h1>
+            </div>
+            <section class="v-limit-650 scroll hidden horizontal">
                 <ul>
                     {% for message in messages %}
                     <li>
@@ -17,27 +19,26 @@
                     <br>
                     {% endfor %}
                 </ul>
-            </div>
+            </section>
         </div>
           
-          <div class="split right">
-            <div class="centered">
-                <p>You are {{ session.username }}</p>
-                <p>Your secret is {{ secret }}</p>
-                <form action="/logout" method="POST">
-                    <input type="submit" value="Logout">
-                </form>
-                <hr>
-                <form action="/send" method="POST">
-                    Message:<br>
-                    <input type="text" name="message"><br>
-                    <input type="hidden" name="id" value="{{ id }}">
-                    <input type="submit" value="Send">
-                </form>
+        <div class="split right">
+            <div class="header">
+                <h1>{% block page %}{% endblock %}</h1>
             </div>
-          </div>
+            <div class="messages">
+                {% with messages = get_flashed_messages() %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endwith %}
+            </div>
+            <div class="container">
+                {% block content %} {% endblock%}
+            </div>
+        </div>
 
-          <script>
+        <script>
             function register() {
                 console.log("show register")
                 document.getElementById("login").style.display = "none"

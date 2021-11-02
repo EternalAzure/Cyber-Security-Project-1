@@ -1,0 +1,51 @@
+{% extends "layout.html.j2"%}
+
+{% block title %}
+    Personal
+{% endblock %}
+
+{% block page %}
+    Your page
+{% endblock %}
+
+{% block content %}
+
+<div class="horizontal">
+    <p>You are {{ session.username }}</p>
+    <p>Your secret is {{ secret }}</p>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+</div>
+<div class="horizontal">
+    <form action="/send" method="POST">
+        Message:<br>
+        <input type="text" name="message"><br>
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="submit" value="Send">
+    </form>
+</div>
+<div class="horizontal">
+    Change your secret<br>
+    <input type="text" id="secret"><br>
+    <button onclick=queryString() value="Change">Change</button>
+    <script>
+        function queryString() {
+            console.log("queryString()")
+            let secret = document.getElementById("secret").value
+            let id = "{{ id }}"
+            let query = `/change?secret=${secret}&user_id=${id}`
+            fetch(query)
+        }
+    </script>
+</div>
+<div class="horizontal">
+    <form action="/language" method="GET">
+        Language:{{session.language}}<br>
+        <input type="radio" name="api" value="/api/language?lan=finnish">Suomi<br>
+        <input type="hidden" name="ref" value="/person/{{id}}">
+        <input type="submit" value="Muuta">
+    </form>
+</div>
+
+{% endblock %}
