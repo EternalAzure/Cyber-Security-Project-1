@@ -65,7 +65,7 @@ You can manipulate the language configuration request with [Burp Suite](https://
 To run the installer go to Downloads and run something like ```$ sh burpsuite_community_linux_v2021_9_1.sh``` CHECK YOUR VERSION!
 Burp Suite community edition is free to use and does not require registeration. Do the short tutorial that comes with the download. <br>
 Burp Suite captures requests and lets you manipulate them before forwarding them. <br>
-With Burp Suite browser log in to an account and on personal page click to change language. Burp suite will capture the request and show you the following view.
+With Burp Suite browser log in to an account and on that personal page click to change language. Burp suite will capture the request and show you the following view.
 <img src="https://github.com/EternalAzure/Cyber-Security-Project-1/blob/main/pictures/burp%20suite.png"  />
 Replace the first line with ```GET /language?api=%2Fapi%2Fadmin&ref=%2Fperson%2F1 HTTP/1.1``` to access ```/api/admin``` and thus execute SSRF. <br>
 You will see ```Kieli:mock response from /admin``` on your personal page.
