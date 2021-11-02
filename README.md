@@ -43,4 +43,27 @@ User can manipulate URL and trick server to do request without knowing the API K
 Bad design allows user to read server response from html.
 
 # How to install
+Python3 is prerequisite. A virtual environment such as venv is recommended. <br>
+Go to a directory of your liking and enter command ```$ clone git@github.com:EternalAzure/Cyber-Security-Project-1.git``` <br>
+This will create a subdirectory called Cyber-Security-Project-1 as your project directory. <br>
+Move to the project directory and enter command ```$ pip install```. <br>
+This should install all required dependencies including Flask and multipledispatch. <br>
 
+# How to use
+## Set up
+Once installed and while in the project directory enter command ```$ sh create_database.sh```. <br>
+This will set up sqlite3 database with schema.sql. <br>
+If you need to reset the database use command ```$ sh reset_database.sh```. <br>
+
+## Run
+Use command ```$ flask run``` to run the server. Go ```http://localhost:5000/``` with your browser to use the app.
+You can terminate the process with ```$ ^C```
+
+## SSRF
+### Cool option
+You can manipulate the language configuration request with [Burp Suite](https://portswigger.net/burp/releases/professional-community-2021-9-1?requestededition=community). <br>
+Burp Suite community editin is free to use and does not require registeration. Do the short tutorial that comes with the download. <br>
+Burp Suite captures requests and lets you manipulate them before forwarding them. <br>
+
+### Easy option
+Alternatively you can use ssrf.rest with VS Code.
