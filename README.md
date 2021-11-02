@@ -62,6 +62,7 @@ You can terminate the process with ```$ ^C```
 ## SSRF
 ### Cool option
 You can manipulate the language configuration request with [Burp Suite](https://portswigger.net/burp/releases/professional-community-2021-9-1?requestededition=community). <br>
+To run the installer go to Downloads and run something like ```$ sh burpsuite_community_linux_v2021_9_1.sh``` CHECK YOUR VERSION!
 Burp Suite community editin is free to use and does not require registeration. Do the short tutorial that comes with the download. <br>
 Burp Suite captures requests and lets you manipulate them before forwarding them. <br>
 
