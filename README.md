@@ -3,7 +3,8 @@
 1. Broken Access Control
 2. Cryptographic Failures
 3. Injections
-4. Identification and Authentication Failures 
+4. Identification and Authentication Failures
+5. Server Side Request Forgery
 
 ## Broken Access Control
 ### Person pages
@@ -35,4 +36,6 @@ Using .j2 file ending disables automatic character escaping. <br>
 - Permits default, weak, or well-known passwords
 - Uses plain text, encrypted, or weakly hashed passwords data stores
 - Has missing or ineffective multi-factor authentication
-- 
+
+## Server Side Request Forgery
+
