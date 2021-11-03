@@ -8,10 +8,8 @@ def get_users():
     return select_all(sql)
 
 def verify_user(username, password):
-    print("verify user")
     pw = hash(password)
     sql = f"SELECT id, username FROM users WHERE username='{username}' AND pwhash='{pw}'"
-    print(sql)
     return select_one(sql)
     
 

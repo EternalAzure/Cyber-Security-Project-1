@@ -1,7 +1,6 @@
 from os import getenv
 from flask import render_template, session, request, redirect, flash
 from flask.helpers import make_response
-from flask.templating import _render
 import requests
 from app import app
 import messages as m
@@ -17,19 +16,21 @@ def index():
 
 @app.route("/change")
 def change():
-    print("ROUTE /CHANGE")
     secret = request.args.get("secret")
     user_id = request.args.get("user_id")
-    print(secret)
     users.change_secret(secret, user_id)
     return redirect(f"/person/{user_id}")
 
 @app.route("/person/<int:id>")
 def person(id):
-    print(f"ROUTE /PERSON/{id}")
+    ''' Flaw 1: Credentials solution
+    if session["user_id"] != id:
+        flash("You have to log in before entering personal page")
+        return redirect("/")
+    '''
+    
     if not "language" in session:
         session["language"] = "english"
-    print("language=", session["language"])
 
     messages = m.get_messages()
     secret = users.get_secret(id)
@@ -72,8 +73,11 @@ def login():
     # user[0] is id and user[1] is username
     user = users.verify_user(user, password)
     if user:
+        '''Flaw 1: Credentials solution
+        session["user_id"] = user[0]
+        '''
         session["username"] = user[1]
-        return redirect("/person/"+str(user[0]))
+        return redirect(f"/person/{user[0]}")
     
     flash("Wrong username or message")
     return redirect("/")
