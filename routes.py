@@ -49,20 +49,39 @@ def send():
     m.add_message(user_id, message)
     return redirect(f"/person/{user_id}")
 
-# SSRF
+# Flaw 5: SSRF
 @app.route("/language", methods=["GET"])
 def language():
-    print("/ROUTE language")
     api = request.args.get("api")
     ref = request.args.get("ref")
-    print("ref=", ref)
-    print("api=", api)
 
     # Call to mock server
     mock_response = requests.get(f"http://localhost:5000/{mock_API_KEY}{api}")
+
     # Do stuff with mock_response
     session["language"] = mock_response.text
     return redirect(ref)
+
+''' Flaw 5: ssrf solution
+def language():
+    index = request.args.get("language_index")
+    id = request.args.get("id")
+    
+    if type(id) != int:
+        flash("Personal page id was not a number")
+        return redirect("/")
+
+    ref = f"/person/{id}"
+
+    languages = [english, finnish]
+    language = languages[index]
+    # Call to mock server
+    mock_response = requests.get(f"http://localhost:5000/{mock_API_KEY}/api/language?lan={language}")
+
+    # Do stuff with mock_response
+    session["language"] = mock_response.text
+    return redirect(ref)
+'''
 
 #LOGGING STUFF
 #-------------------
@@ -117,7 +136,6 @@ def logout():
 # Mock up API in some far away external server
 @app.route(f"/{mock_API_KEY}/api/language")
 def internal_language():
-    print("/ROUTE LANGUAGE")
     language = request.args.get("lan")
     print("lan=", language)
     # Do stuff
@@ -128,5 +146,4 @@ def internal_language():
 # Mock up API in some far away external server
 @app.route(f"/{mock_API_KEY}/api/admin")
 def admin():
-    print("/ROUTE ADMIN")
     return make_response("mock response from /admin")
