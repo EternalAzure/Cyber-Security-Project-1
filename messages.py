@@ -5,5 +5,6 @@ def get_messages():
     return select_all(sql)
 
 def add_message(id, message):
-    sql = "INSERT INTO messages (user_id, message) VALUES ("+id+", '"+message+"')"
-    insert(sql)
+    sql = "INSERT INTO messages (user_id, message) VALUES (:id, :message)"
+    bindings = {"id": id, "message": message}
+    insert(sql, bindings)

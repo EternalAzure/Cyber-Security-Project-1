@@ -26,10 +26,10 @@ def select_one(sql, bindings):
     conn.close()
     return list
 
-def insert(sql):
+def insert(sql, bindings):
     print(sql)
     conn = sqlite3.connect(database)
-    id = conn.execute(sql).lastrowid
+    id = conn.execute(sql, bindings).lastrowid
     conn.commit()
     conn.close()
     return id
