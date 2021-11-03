@@ -23,6 +23,8 @@
         <input type="text" name="message"><br>
         <input type="hidden" name="id" value="{{ id }}">
         <input type="submit" value="Send">
+        <!-- Flaw 3: csrf solution -->
+        <!-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> -->
     </form>
 </div>
 <div class="horizontal">

@@ -5,7 +5,7 @@ import requests
 from app import app
 import messages as m
 import users
-from os import getenv
+import re
 
 mock_API_KEY = getenv("mock_API_KEY")
 
@@ -88,8 +88,14 @@ def register():
     user = request.form["username"]
     password = request.form["password"]
     secret = request.form["secret"]
+    ''' Flaw 4: weak password solution
+    regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{9,}$/g"
+    format = re.compile(regex)  
+    k = re.search(format, password)
+    if k is None :
+        flash("Vaaditaan iso ja pieni kirjain sekä numero. Vähintään 9 merkiä pitkä")
+    '''
     id = users.add_user(user, password, secret)
-
     if id == None:
         flash("Username is taken")
         return redirect("/")
