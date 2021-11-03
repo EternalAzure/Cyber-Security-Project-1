@@ -95,4 +95,7 @@ You will see
         Kieli:mock response from /admin<br>
         ...
 ```
-in VS Code.
+in VS Code. <br>
+OR <br>
+You can be extra boring and simply write ```http://localhost:5000/language?api=/api/admin&ref=/person/1``` to browser.
+Note that POST methods would not get through like this.
